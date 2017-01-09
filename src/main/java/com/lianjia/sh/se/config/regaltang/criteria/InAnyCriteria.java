@@ -20,8 +20,18 @@ public final class InAnyCriteria extends BaseCriteria<Object, Set<Object>> {
    * @see com.lianjia.sh.se.fy.entrust.dynamic.Operator#identity()
    */
   @Override
-  public String identity() {
+  public String key() {
     return "criteria_in_any";
+  }
+
+  
+
+  /* 
+   * @see com.lianjia.sh.se.config.regaltang.criteria.BaseCriteria#order()
+   */
+  @Override
+  public int order() {
+    return 800;
   }
 
 

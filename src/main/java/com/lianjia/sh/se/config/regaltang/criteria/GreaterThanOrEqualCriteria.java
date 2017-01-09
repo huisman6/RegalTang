@@ -15,7 +15,7 @@ public final class GreaterThanOrEqualCriteria  extends ComparableCriteria{
   }
 
   @Override
-  public String identity() {
+  public String key() {
     return "criteria_greater_than_or_equal";
   }
 

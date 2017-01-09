@@ -15,7 +15,7 @@ public final class LessThanOrEqualCriteria  extends ComparableCriteria{
   }
 
   @Override
-  public String identity() {
+  public String key() {
     return "criteria_less_than_or_equal";
   }
 

@@ -21,7 +21,7 @@ public class DataSourceConfig {
     EmbeddedDatabase db = builder
         .setType(EmbeddedDatabaseType.HSQL) // .H2 or .DERBY
         .addScript("db/hsql/sql/schema-sql.sql")
-        .addScript("db/hsql/sql/data-sql.sql")
+       // .addScript("db/hsql/sql/data-sql.sql")
         .setName("RegalTang")
         .build();
     //@formatter:on

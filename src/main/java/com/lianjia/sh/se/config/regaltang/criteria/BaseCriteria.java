@@ -25,6 +25,26 @@ public abstract class BaseCriteria<Input, ExpectedValue> implements Criteria<Inp
     super();
     this.conversionService = new DefaultConversionService();
   }
+  
+
+  /* 
+   * @see com.lianjia.sh.se.config.regaltang.criteria.Criteria#order()
+   */
+  @Override
+  public int order() {
+    return 0;
+  }
+
+
+  /* 
+   * @see com.lianjia.sh.se.config.regaltang.criteria.Criteria#evaluate(java.lang.Object, java.lang.Object)
+   */
+  @Override
+  public boolean evaluate(Input input, ExpectedValue expectedValue) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
 
   /**
    * 将某个{@code source}转换为指定类型{@code targetClass}<br>
@@ -60,6 +80,6 @@ public abstract class BaseCriteria<Input, ExpectedValue> implements Criteria<Inp
    */
   @Override
   public String toString() {
-    return this.getClass().getSimpleName()+"[name=" + this.name() + ", identity=" + this.identity() + "]";
+    return this.getClass().getSimpleName()+"[name=" + this.name() + ", key=" + this.key()+", order="+this.order() + "]";
   }
 }
