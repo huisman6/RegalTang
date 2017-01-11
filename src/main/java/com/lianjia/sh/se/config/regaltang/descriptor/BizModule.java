@@ -1,7 +1,7 @@
 package com.lianjia.sh.se.config.regaltang.descriptor;
 
 /**
- * 业务模块
+ * 业务模块包含三部分：可用的条件选项（{@code CriteriaOption}）、输出结果（{@code RuleOutput}）、配置项{@code RuleItem}
  * @summary 
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
@@ -12,7 +12,7 @@ public final class BizModule implements ConfigDescriptor {
    */
   private String name;
   /**
-   * 自身模块的标识
+   * 自身模块的标识，namespace
    */
   private String identity;
   /**

@@ -17,13 +17,13 @@ class CriteriaDao {
    * @version v1
    * @since 2017年1月9日 上午11:07:07
    */
-  public void syncCriteria(String identity, String name,int order) {
-    int count = jdbcTemplate.queryForObject("select count(*) from t_conditional_config_criteria where criteria=?", Integer.class, identity);
+  public void syncCriteria(String identity,int multiValue, String name,int order) {
+    int count = jdbcTemplate.queryForObject("select count(*) from t_rule_criteria where criteria=?", Integer.class, identity);
     if (count > 0) {
-      this.jdbcTemplate.update("update t_conditional_config_criteria set name=?,sort=? where criteria=?", name,order, identity);
+      this.jdbcTemplate.update("update t_rule_criteria set name=?,multiValue=?,sort=? where criteria=?", name,multiValue,order, identity);
     } else {
-      this.jdbcTemplate.update("insert into t_conditional_config_criteria(criteria, name,sort)values(?,?,?)",
-        identity, name,order);
+      this.jdbcTemplate.update("insert into t_rule_criteria(criteria,multiValue, name,sort)values(?,?,?,?)",
+        identity,multiValue, name,order);
     }
   }
 }

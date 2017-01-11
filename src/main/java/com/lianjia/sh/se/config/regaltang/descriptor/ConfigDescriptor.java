@@ -5,7 +5,7 @@ package com.lianjia.sh.se.config.regaltang.descriptor;
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
-public interface ConfigDescriptor {
+interface ConfigDescriptor {
   /**
    * 界面显示的名称
    */

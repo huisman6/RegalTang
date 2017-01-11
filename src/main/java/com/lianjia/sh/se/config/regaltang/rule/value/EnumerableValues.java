@@ -1,4 +1,6 @@
-package com.lianjia.sh.se.config.regaltang.descriptor;
+package com.lianjia.sh.se.config.regaltang.rule.value;
+
+import java.util.List;
 
 /**
  * 所代表的值类型可被枚举，包括Java枚举、基本类型的数组、或者可以被转换为数组的类的实例;
@@ -9,9 +11,9 @@ package com.lianjia.sh.se.config.regaltang.descriptor;
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
 @FunctionalInterface
-public interface EnumerableValueDescriptor{
+public interface EnumerableValues{
   /**
    * 可枚举的值，如果返回null或Empty，则表示没有值可枚举，可能需要人手动输入8种基本类型的数据等。
    */
-  NamedValue[] elements();
+  List<NamedValue> elements();
 }

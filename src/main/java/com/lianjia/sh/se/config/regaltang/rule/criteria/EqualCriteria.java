@@ -1,4 +1,4 @@
-package com.lianjia.sh.se.config.regaltang.criteria;
+package com.lianjia.sh.se.config.regaltang.rule.criteria;
 
 import java.util.Optional;
 

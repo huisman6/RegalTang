@@ -1,8 +1,9 @@
-package com.lianjia.sh.se.config.regaltang.criteria;
+package com.lianjia.sh.se.config.regaltang.rule.criteria;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +19,8 @@ public class CriteriaTest {
   public void testInAny() {
     InAnyCriteria inAny = new InAnyCriteria();
     logger.info(inAny.toString());
-    logger.info("" + inAny.evaluate(12, new HashSet<>(Arrays.asList("1", "2", "23", "12"))));
-    logger.info("" + inAny.evaluate(TestEnum.信息方, new HashSet<>(Arrays.asList(TestEnum.values()))));
+    Assert.assertTrue(inAny.evaluate(23, new HashSet<>(Arrays.asList("1", "2", "23", "12"))));
+    Assert.assertTrue(inAny.evaluate(TestEnum.信息方, new HashSet<>(Arrays.asList(TestEnum.values()))));
   }
 
   @Test

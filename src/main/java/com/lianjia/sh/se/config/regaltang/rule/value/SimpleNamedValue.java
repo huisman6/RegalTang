@@ -1,11 +1,11 @@
-package com.lianjia.sh.se.config.regaltang.descriptor;
+package com.lianjia.sh.se.config.regaltang.rule.value;
 
 /**
  * 简单的值类型
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
-public class SimpleNamedValue implements NamedValue{
+public final class SimpleNamedValue implements NamedValue{
   private String name;
   private String value;
   

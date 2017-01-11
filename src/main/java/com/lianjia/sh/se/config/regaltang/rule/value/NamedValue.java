@@ -1,4 +1,4 @@
-package com.lianjia.sh.se.config.regaltang.descriptor;
+package com.lianjia.sh.se.config.regaltang.rule.value;
 
 /**
  * 有显示名称的值
