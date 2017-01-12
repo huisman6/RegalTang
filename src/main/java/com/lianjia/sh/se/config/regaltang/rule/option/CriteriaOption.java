@@ -7,7 +7,7 @@ public interface CriteriaOption {
   String name();
 
   /**
-   * 用于从上下文{@code Criteria.Context#get(String)}获取数据的key
+   * 用于从上下文{@code Context#get(String)}获取数据的key
    */
   String key();
 }

@@ -1,4 +1,4 @@
-package com.lianjia.sh.se.config.regaltang.rule.criteria;
+package com.lianjia.sh.se.config.realtang.rule.criteria;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -6,6 +6,13 @@ import java.util.HashSet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
+
+import com.lianjia.sh.se.config.regaltang.rule.criteria.EqualCriteria;
+import com.lianjia.sh.se.config.regaltang.rule.criteria.GreaterThanCriteria;
+import com.lianjia.sh.se.config.regaltang.rule.criteria.GreaterThanOrEqualCriteria;
+import com.lianjia.sh.se.config.regaltang.rule.criteria.InAnyCriteria;
+import com.lianjia.sh.se.config.regaltang.rule.criteria.LessThanCriteria;
+import com.lianjia.sh.se.config.regaltang.rule.criteria.LessThanOrEqualCriteria;
 
 
 public class CriteriaTest {

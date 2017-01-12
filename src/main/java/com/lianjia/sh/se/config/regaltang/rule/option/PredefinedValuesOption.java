@@ -10,18 +10,18 @@ import com.lianjia.sh.se.config.regaltang.rule.value.SimpleNamedValue;
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
-public final class PredefinedValueOption implements EnumerableValueOption {
+public final class PredefinedValuesOption implements EnumerableValueOption {
   private String name;
   private String key;
   private List<NamedValue> elements;
 
   /**
-   * @param key 选项的标识，用于从{@code Criteria.Context}里获取运行时数据
+   * @param key 选项的标识，用于从{@code Context#get(String)}里获取运行时数据
    * @param name 选项显示的名称
    * @param elements 选项内置的值
    * @see SimpleNamedValue
    */
-  public PredefinedValueOption(String key, String name, List<NamedValue> elements) {
+  public PredefinedValuesOption(String key, String name, List<NamedValue> elements) {
     super();
     this.name = name;
     this.key = key;
@@ -41,6 +41,16 @@ public final class PredefinedValueOption implements EnumerableValueOption {
   @Override
   public List<NamedValue> elements() {
     return this.elements;
+  }
+
+  /* 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    final int maxLen = 90;
+    return "PredefinedValuesOption [name=" + name + ", key=" + key + ", elements="
+        + (elements != null ? elements.subList(0, Math.min(elements.size(), maxLen)) : null) + "]";
   }
 
 }

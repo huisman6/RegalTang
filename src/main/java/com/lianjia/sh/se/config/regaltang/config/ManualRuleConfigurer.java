@@ -1,6 +1,7 @@
 package com.lianjia.sh.se.config.regaltang.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ import com.lianjia.sh.se.config.regaltang.rule.output.RuleOutput;
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
-public final class ManualRuleConfigurer implements RuleConfigurer {
+public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConfigurer> {
   private Logger logger = LoggerFactory.getLogger(this.getClass());
   /**
    * spring.application.name对外显示的名称
@@ -28,13 +29,12 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
   private List<DefaultModuleConfigurer> moduleConfigurers = new ArrayList<>();
 
   private ManualRuleConfigurer() {
-    throw new UnsupportedOperationException("ManualRuleConfigurer can't instantiate via reflect or MethodHandle");
   }
 
   /**
    * 手动配置业务模块相关信息
    */
-  public static RuleConfigurer create() {
+  public static RuleConfigurer<ManualRuleConfigurer> create() {
     return new ManualRuleConfigurer();
   }
 
@@ -43,7 +43,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
    * 
    * @param appName spring.application.name对外显示的名称
    */
-  public RuleConfigurer appName(String appName) {
+  public ManualRuleConfigurer appName(String appName) {
     this.appName = appName;
     return this;
   }
@@ -51,7 +51,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
   /**
    * 开始配置当前应用的业务配置模块；
    */
-  public ModuleConfigurer withModule() {
+  public ModuleConfigurer<ManualRuleConfigurer> withModule() {
     DefaultModuleConfigurer moduleConfigurer = new DefaultModuleConfigurer(this);
     moduleConfigurers.add(moduleConfigurer);
     return moduleConfigurer;
@@ -86,7 +86,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
         }
         itemIdentitys.add(item.identity());
       }
-      
+
       Set<String> optionIdentitys = new HashSet<>();
       for (CriteriaOption option : module.criteriaOptions) {
         if (option.key() == null || option.key().trim().isEmpty()) {
@@ -108,31 +108,31 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
   /**
    * 打印当前配置好的模块信息
    */
-  void print() {
+  public void print() {
     logger.info("\n");
     logger.info("****************** {} 启用的业务模块 ******************", this.appName);
     for (DefaultModuleConfigurer moduleConfigurer : moduleConfigurers) {
       logger.info("****************** 模块 name={}，identity={} ******************", moduleConfigurer.name, moduleConfigurer.identity);
       moduleConfigurer.configItems.forEach((item) -> logger.info("=====>  配置项：{}", item));
-      moduleConfigurer.criteriaOptions.forEach((item) -> logger.info("=====> 条件选项：{}", item));
-      logger.info("=====> 输出结果：{}", moduleConfigurer.ruleOutput);
+      moduleConfigurer.criteriaOptions.forEach((item) -> logger.info("=====>  条件选项：{}", item));
+      logger.info("=====>  输出结果：{}", moduleConfigurer.ruleOutput);
     }
     logger.info("\n");
   }
 
-  static class DefaultModuleConfigurer implements ModuleConfigurer {
+  static class DefaultModuleConfigurer implements ModuleConfigurer<ManualRuleConfigurer> {
     /**
      * 规则配置
      */
-    private final RuleConfigurer ruleConfigurer;
+    private final ManualRuleConfigurer ruleConfigurer;
     /**
      * 可配置项
      */
-    private List<RuleItem> configItems;
+    private List<RuleItem> configItems = new ArrayList<>();
     /**
      * 业务条件选项
      */
-    private List<CriteriaOption> criteriaOptions;
+    private List<CriteriaOption> criteriaOptions = new ArrayList<>();
     /**
      * 模块输出
      */
@@ -147,35 +147,35 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
      */
     private String identity;
 
-    DefaultModuleConfigurer(RuleConfigurer ruleConfigurer) {
+    DefaultModuleConfigurer(ManualRuleConfigurer ruleConfigurer) {
       this.ruleConfigurer = ruleConfigurer;
     }
 
     @Override
-    public RuleConfigurer and() {
+    public ManualRuleConfigurer and() {
       return this.ruleConfigurer;
     }
 
     @Override
-    public ModuleConfigurer ruleItems(List<RuleItem> ruleItems) {
+    public ModuleConfigurer<ManualRuleConfigurer> ruleItems(List<RuleItem> ruleItems) {
       if (ruleItems == null || ruleItems.isEmpty()) {
         throw new IllegalArgumentException("RuleItem 不能为空");
       }
-      this.configItems = ruleItems;
+      this.configItems.addAll(ruleItems);
       return this;
     }
 
     @Override
-    public ModuleConfigurer availableOptions(List<CriteriaOption> options) {
+    public ModuleConfigurer<ManualRuleConfigurer> availableOptions(List<CriteriaOption> options) {
       if (options == null || options.isEmpty()) {
         throw new IllegalArgumentException("CriteriaOptions 不能为空");
       }
-      this.criteriaOptions = options;
+      this.criteriaOptions.addAll(options);
       return this;
     }
 
     @Override
-    public ModuleConfigurer output(RuleOutput output) {
+    public ModuleConfigurer<ManualRuleConfigurer> output(RuleOutput output) {
       if (output == null) {
         throw new IllegalArgumentException("RuleOutput不能为空");
       }
@@ -183,13 +183,39 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
       return this;
     }
 
+    /*
+     * @see
+     * com.lianjia.sh.se.config.regaltang.config.ModuleConfigurer#ruleItems(com.lianjia.sh.se.config
+     * .regaltang.descriptor.RuleItem[])
+     */
+    @Override
+    public ModuleConfigurer<ManualRuleConfigurer> ruleItems(RuleItem... ruleItems) {
+      if (ruleItems == null || ruleItems.length == 0) {
+        throw new IllegalArgumentException("RuleItem 不能为空");
+      }
+      this.configItems.addAll(Arrays.asList(ruleItems));
+      return this;
+    }
 
+    /*
+     * @see
+     * com.lianjia.sh.se.config.regaltang.config.ModuleConfigurer#availableOptions(com.lianjia.sh.se
+     * .config.regaltang.rule.option.CriteriaOption[])
+     */
+    @Override
+    public ModuleConfigurer<ManualRuleConfigurer> availableOptions(CriteriaOption... options) {
+      if (options == null || options.length == 0) {
+        throw new IllegalArgumentException("options 不能为空");
+      }
+      this.criteriaOptions.addAll(Arrays.asList(options));
+      return this;
+    }
 
     /*
      * @see com.lianjia.sh.se.config.regaltang.config.ModuleConfigurer#identity()
      */
     @Override
-    public ModuleConfigurer identity(String identity) {
+    public ModuleConfigurer<ManualRuleConfigurer> identity(String identity) {
       this.identity = identity;
       return this;
     }
@@ -198,7 +224,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer {
      * @see com.lianjia.sh.se.config.regaltang.config.ModuleConfigurer#name()
      */
     @Override
-    public ModuleConfigurer name(String name) {
+    public ModuleConfigurer<ManualRuleConfigurer> name(String name) {
       this.name = name;
       return this;
     }
