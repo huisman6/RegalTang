@@ -1,30 +1,27 @@
 package com.lianjia.sh.se.config.regaltang.rule.value;
 
+import org.springframework.util.ClassUtils;
+
 /**
  * 类型信息
+ * 
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
 public interface TypeInfo {
   /**
-   * 值的类型
+   * 判断一个class是否为简单类型，仅包括Java八种基本类型(boolean,byte,short,char,int,long,float,double)
+   * 和字符串以及枚举常量；
+   * @param clazz
+   * @author Huisman
+   * @since 2017年1月12日 下午3:24:02
    */
-  Type type();
-  
-  enum Type{
-    /**
-     * 类型为八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String、枚举常量
-     */
-    SCALAR(2),
-    
-    /**
-     * 标准Java Bean，即普通的model，字段类型仅包括八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String
-     */
-    JAVA_BEAN(3);
-    
-    int type;
-    private Type(int type) {
-      this.type = type;
-    }
+  static boolean isSimpleType(Class<?> clazz) {
+    return (ClassUtils.isPrimitiveOrWrapper(clazz) || clazz.isEnum() || String.class == clazz);
   }
+
+  /**
+   * 类型信息
+   */
+  Class<?> type();
 }

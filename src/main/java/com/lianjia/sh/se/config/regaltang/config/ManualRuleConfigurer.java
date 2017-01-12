@@ -9,7 +9,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lianjia.sh.se.config.regaltang.descriptor.RuleItem;
+import com.lianjia.sh.se.config.regaltang.rule.item.RuleItem;
 import com.lianjia.sh.se.config.regaltang.rule.option.CriteriaOption;
 import com.lianjia.sh.se.config.regaltang.rule.output.RuleOutput;
 
@@ -26,15 +26,14 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
    */
   private String appName;
 
-  private List<DefaultModuleConfigurer> moduleConfigurers = new ArrayList<>();
+  private List<ManualModuleConfigurer> moduleConfigurers = new ArrayList<>();
 
-  private ManualRuleConfigurer() {
-  }
+  private ManualRuleConfigurer() {}
 
   /**
    * 手动配置业务模块相关信息
    */
-  public static RuleConfigurer<ManualRuleConfigurer> create() {
+  public static RuleConfigurer<ManualRuleConfigurer> configurer() {
     return new ManualRuleConfigurer();
   }
 
@@ -48,11 +47,20 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
     return this;
   }
 
+
+  /**
+   * 给应用新增业务配置模块；
+   */
+  public ManualRuleConfigurer addModule(ManualModuleConfigurer module) {
+    moduleConfigurers.add(module);
+    return this;
+  }
+
   /**
    * 开始配置当前应用的业务配置模块；
    */
   public ModuleConfigurer<ManualRuleConfigurer> withModule() {
-    DefaultModuleConfigurer moduleConfigurer = new DefaultModuleConfigurer(this);
+    ManualModuleConfigurer moduleConfigurer =ManualModuleConfigurer.of(this);
     moduleConfigurers.add(moduleConfigurer);
     return moduleConfigurer;
   }
@@ -66,7 +74,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
     }
     Set<String> moduleIdentitys = new HashSet<>();
     // ruleItem的name
-    for (DefaultModuleConfigurer module : moduleConfigurers) {
+    for (ManualModuleConfigurer module : moduleConfigurers) {
       if (module.identity == null || module.identity.trim().isEmpty()) {
         throw new IllegalArgumentException(String.format("appName:%s,module identity is null,module name:%s", this.appName, module.name));
       }
@@ -111,7 +119,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
   public void print() {
     logger.info("\n");
     logger.info("****************** {} 启用的业务模块 ******************", this.appName);
-    for (DefaultModuleConfigurer moduleConfigurer : moduleConfigurers) {
+    for (ManualModuleConfigurer moduleConfigurer : moduleConfigurers) {
       logger.info("****************** 模块 name={}，identity={} ******************", moduleConfigurer.name, moduleConfigurer.identity);
       moduleConfigurer.configItems.forEach((item) -> logger.info("=====>  配置项：{}", item));
       moduleConfigurer.criteriaOptions.forEach((item) -> logger.info("=====>  条件选项：{}", item));
@@ -120,7 +128,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
     logger.info("\n");
   }
 
-  static class DefaultModuleConfigurer implements ModuleConfigurer<ManualRuleConfigurer> {
+  public static class ManualModuleConfigurer implements ModuleConfigurer<ManualRuleConfigurer> {
     /**
      * 规则配置
      */
@@ -147,7 +155,15 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
      */
     private String identity;
 
-    DefaultModuleConfigurer(ManualRuleConfigurer ruleConfigurer) {
+    /**
+     * 给{@code ManualRuleConfigurer}新增个模块
+     * @param ruleConfigurer
+     */
+    static ManualModuleConfigurer of(ManualRuleConfigurer ruleConfigurer) {
+      return new ManualModuleConfigurer(ruleConfigurer);
+    }
+
+    private ManualModuleConfigurer(ManualRuleConfigurer ruleConfigurer) {
       this.ruleConfigurer = ruleConfigurer;
     }
 

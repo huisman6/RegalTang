@@ -1,16 +1,17 @@
-package com.lianjia.sh.se.config.regaltang.descriptor;
+package com.lianjia.sh.se.config.regaltang.rule.item;
 
 /**
  * 一条可配置的规则项，可表示字符串、枚举等
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
-public class RuleItem implements ConfigDescriptor {
+public class RuleItem {
    private String name;
    private String identity;
   
   /**
-   * @param identity 可配置规则项的唯一标识，在同一个module里必须唯一 
+   * 一条可配置的规则项，可表示字符串、枚举等
+   * @param identity 可配置规则项的唯一标识，在同一个module里必须唯一，我们通过identity查找此RuleItem配置的值
    * @param name  规则项的显示名称
    */
   public RuleItem(String identity, String name) {

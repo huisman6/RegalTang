@@ -1,6 +1,8 @@
 package com.lianjia.sh.se.config.regaltang.rule.option;
 
-public interface CriteriaOption {
+import com.lianjia.sh.se.config.regaltang.rule.value.TypeInfo;
+
+public interface CriteriaOption extends TypeInfo {
   /**
    * 选项的名称，常用于对外显示
    */

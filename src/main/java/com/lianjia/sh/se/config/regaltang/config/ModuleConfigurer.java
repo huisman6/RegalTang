@@ -2,11 +2,12 @@ package com.lianjia.sh.se.config.regaltang.config;
 
 import java.util.List;
 
-import com.lianjia.sh.se.config.regaltang.descriptor.RuleItem;
+import com.lianjia.sh.se.config.regaltang.rule.item.RuleItem;
 import com.lianjia.sh.se.config.regaltang.rule.option.CriteriaOption;
 import com.lianjia.sh.se.config.regaltang.rule.option.EnumerableValueOption;
 import com.lianjia.sh.se.config.regaltang.rule.option.PredefinedValuesOption;
 import com.lianjia.sh.se.config.regaltang.rule.option.SimpleOption;
+import com.lianjia.sh.se.config.regaltang.rule.output.JavaBeanRuleOutput;
 import com.lianjia.sh.se.config.regaltang.rule.output.PredifinedValuesRuleOutput;
 import com.lianjia.sh.se.config.regaltang.rule.output.RuleOutput;
 import com.lianjia.sh.se.config.regaltang.rule.output.ScalarRuleOutput;
@@ -81,9 +82,10 @@ public interface ModuleConfigurer<RuleConfigurerImp> {
   ModuleConfigurer<RuleConfigurerImp> availableOptions(CriteriaOption... options);
   
   /**
-   * 业务模块可能产生的输出，一条配置项可能输出预定义的值，也可能是由用户手动输入一些简单的值，甚至需要用户手动配置一个Java Bean<br>
+   * 业务规则对应的输出值，一条配置项可能输出预定义的值，也可能是由用户手动输入一些简单的值，甚至需要用户手动配置一个Java Bean<br>
    * @see ScalarRuleOutput
    * @see PredifinedValuesRuleOutput
+   * @see JavaBeanRuleOutput 
    * @exception IllegalArgumentException 如果output为null
    */
   ModuleConfigurer<RuleConfigurerImp> output(RuleOutput output);

@@ -13,7 +13,7 @@ public interface NamedValue {
   String name();
 
   /**
-   * 实际的值，转换为字符串存储，如果是Java Bean，可以考虑序列化成JSON
+   * 实际的值，目前仅支持八种基本类型、字符串、枚举常量以及Java Bean，如果是Java Bean，Java Bean的字段只能是8种基本类型或字符串
    */
-  String value();
+  Object value();
 }
