@@ -62,7 +62,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
   /**
    * 手动配置业务模块相关信息，单例，整个项目就一个实例
    */
-  public static RuleConfigurer<ManualRuleConfigurer> singleton() {
+  public static ManualRuleConfigurer singleton() {
     return SIGLETON_CONFIGURER;
   }
 
@@ -97,7 +97,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
    * 开始配置当前应用的业务配置模块；
    */
   public ModuleConfigurer<ManualRuleConfigurer> withModule() {
-    ManualModuleConfigurer moduleConfigurer = ManualModuleConfigurer.of(this);
+    ManualModuleConfigurer moduleConfigurer = ManualModuleConfigurer.module();
     moduleConfigurers.add(moduleConfigurer);
     return moduleConfigurer;
   }
@@ -298,8 +298,8 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
      * 
      * @param ruleConfigurer
      */
-    static ManualModuleConfigurer of(ManualRuleConfigurer ruleConfigurer) {
-      return new ManualModuleConfigurer(ruleConfigurer);
+    public static ManualModuleConfigurer module() {
+      return new ManualModuleConfigurer(ManualRuleConfigurer.singleton());
     }
 
     private ManualModuleConfigurer(ManualRuleConfigurer ruleConfigurer) {
