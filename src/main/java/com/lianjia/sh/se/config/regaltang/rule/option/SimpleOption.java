@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.lianjia.sh.se.config.regaltang.rule.value.TypeInfo;
 
 /**
- * 简单的选项，不指定Value，由用户输入；
+ * 简单的选项，不指定Value，由用户输入，手动输入的数据都不支持枚举；
  * 
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
@@ -16,13 +16,14 @@ public final class SimpleOption implements CriteriaOption {
   private Class<?> type;
 
   /**
-   * 简单的选项，仅支持八种基本类型、字符串，不指定Value，由用户输入；
+   * 简单的选项， 仅支持类型为八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String、java.util.Date、java.time.LocalDate/LocalDateTime，
+   * 不包括枚举常量，由用户输入；
    * 
    * @param type 用户可输入数据的类型
    * @param name 选项对外显示的名称
    * @param key 用于{@code Context#get(String)}查找运行时数据
    * @exception NullPointerException 如果type、name、key为null
-   * @exception IllegalArgumentException 如果type不是八种基本类型、字符串
+   * @exception IllegalArgumentException  仅支持类型为八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String、java.util.Date、java.time.LocalDate/LocalDateTime
    */
   public SimpleOption(Class<?> type, String name, String key) {
     super();
@@ -30,8 +31,8 @@ public final class SimpleOption implements CriteriaOption {
     Objects.requireNonNull(name, "name不能为null");
     Objects.requireNonNull(key, "key不能为null");
     
-    if (!TypeInfo.isSimpleType(type)) {
-      throw new IllegalArgumentException(String.format("type:%s，仅限八种基本类型及字符串", type.getName()));
+    if (!TypeInfo.isSimpleType(type) || type.isEnum()) {
+      throw new IllegalArgumentException(String.format("type:%s，仅支持类型为八种基本类型和字符串String、java.util.Date、java.time.LocalDate/LocalDateTime", type.getName()));
     }
     this.name = name;
     this.key = key;

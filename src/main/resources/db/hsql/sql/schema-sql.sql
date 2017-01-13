@@ -86,8 +86,8 @@ CREATE TABLE t_rule_application_module_option_named_value(
   id INTEGER IDENTITY PRIMARY KEY,
   -- 可枚举的option对应的值对外显示的名称
   name VARCHAR(80) NOT NULL,
-  -- 实际的值，保存为字符串
-  value VARCHAR(200) NOT NULL,
+  -- 实际的值，保存为字符串，值的标识
+  namedValue VARCHAR(200) NOT NULL,
   -- 选项ID
   optionId INTEGER NOT NULL,
  -- sync SMALLINT DEFAULT(0)
@@ -119,12 +119,12 @@ CREATE TABLE t_rule_application_module_output(
 
 
 --规则的输出为预定义的元数据信息（只针对类型为PredifinedValuesRuleOutput）
-CREATE TABLE t_rule_application_module_output_predifined_value(
+CREATE TABLE t_rule_application_module_output_predefined_value(
   id INTEGER IDENTITY PRIMARY KEY,
   -- 可枚举的output对应的值对外显示的名称
   name VARCHAR(80) NOT NULL,
   -- 实际的值，保存为字符串
-  value VARCHAR(200) NOT NULL,
+  predefinedValue VARCHAR(200) NOT NULL,
   --输出结果的ID
   outputId INTEGER NOT NULL,
  -- sync SMALLINT DEFAULT(0)

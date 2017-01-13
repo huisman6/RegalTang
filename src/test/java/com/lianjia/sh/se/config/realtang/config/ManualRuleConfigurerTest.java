@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 import com.lianjia.sh.se.config.regaltang.config.ManualRuleConfigurer;
+import com.lianjia.sh.se.config.regaltang.dto.ApplicationDescriptor;
 import com.lianjia.sh.se.config.regaltang.rule.item.RuleItem;
 import com.lianjia.sh.se.config.regaltang.rule.output.ScalarRuleOutput;
 
@@ -14,7 +15,7 @@ public class ManualRuleConfigurerTest {
   @Test
   public void build() {
     //@formatter:off
-      ManualRuleConfigurer.configurer()
+    ApplicationDescriptor ad=  ManualRuleConfigurer.singleton()
       .appName("房源")
       .withModule()
           .identity(InterestPersonContext.MODULE_NAMESPACE)
@@ -28,8 +29,14 @@ public class ManualRuleConfigurerTest {
              InterestPersonContext.Options.CITY
            )
           .output(new ScalarRuleOutput("分佣比率",Double.class))
-          .and()
-          .print();
+          .and().springApplicationName("fy-entrust-server")
+          .done();
+      
+      System.out.println(ad.toString());
      //@formatter:on
+  }
+  
+  @Test
+  public void cotext(){
   }
 }

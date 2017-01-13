@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.lianjia.sh.se.config.regaltang.rule.value.TypeInfo;
 
 /**
- * 简单输出，仅支持Java八种基本类型以及String，需要用户手动填写规则的输出
+ * 简单输出，仅支持Java八种基本类型以及String，需要用户手动填写规则的输出；手动输入的数据都不支持枚举；
  * 
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
@@ -15,12 +15,11 @@ public final class ScalarRuleOutput implements RuleOutput,TypeInfo {
   private Class<?> type;
 
   /**
-   * 简单输出，仅支持Java八种基本类型以及String，需要用户手动填写规则的输出
-   * 
+   * 简单输出，仅支持Java八种基本类型以及String、java.util.Date、java.time.LocalDate/LocalDateTime，不能包含枚举，需要用户手动填写规则的输出
    * @param name 界面显示的名称
    * @param type 用户输入数据的类型
    * @exception NullPointerException 如果name或者value为null
-   * @exception IllegalArgumentException 仅支持Java8种基本类型、String，否则报此错误
+   * @exception IllegalArgumentException 仅支持Java8种基本类型、String、java.util.Date、java.time.LocalDate/LocalDateTime，否则报此错误
    */
   public ScalarRuleOutput(String name, Class<?> type) {
     super();
@@ -28,7 +27,7 @@ public final class ScalarRuleOutput implements RuleOutput,TypeInfo {
     Objects.requireNonNull(type, "type不能为null");
 
     if (!TypeInfo.isSimpleType(type) || type.isEnum()) {
-      throw new IllegalArgumentException(String.format("type:%s，仅支持Java8种基本类型、String", type.getName()));
+      throw new IllegalArgumentException(String.format("type:%s，仅支持Java8种基本类型、String、java.util.Date、java.time.LocalDate/LocalDateTime", type.getName()));
     }
     this.type=type;
     this.name = name;

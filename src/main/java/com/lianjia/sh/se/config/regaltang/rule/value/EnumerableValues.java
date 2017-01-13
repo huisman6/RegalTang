@@ -11,7 +11,7 @@ import java.util.List;
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
 @FunctionalInterface
-public interface EnumerableValues{
+public interface EnumerableValues extends Values<List<NamedValue>>{
   /**
    * 可枚举的值，如果返回null或Empty，则表示没有值可枚举，可能需要人手动输入8种基本类型的数据等。
    */

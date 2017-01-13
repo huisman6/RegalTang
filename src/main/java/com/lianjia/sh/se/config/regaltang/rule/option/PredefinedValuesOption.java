@@ -5,9 +5,11 @@ import java.util.Objects;
 
 import com.lianjia.sh.se.config.regaltang.rule.value.NamedValue;
 import com.lianjia.sh.se.config.regaltang.rule.value.SimpleNamedValue;
+import com.lianjia.sh.se.config.regaltang.rule.value.TypeInfo;
 
 /**
- * 预定义值的选项
+ * 预定义值的选项, 仅支持类型为八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String、java.util.Date、java.time.LocalDate/LocalDateTime、
+ * 枚举常量;预定义的数据都包含枚举；
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
@@ -18,12 +20,15 @@ public final class PredefinedValuesOption implements EnumerableValueOption {
   private List<NamedValue> elements;
 
   /**
-   * 包含预定义值的选项
+   * 包含预定义值的选项，仅支持类型为八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String、java.util.Date、java.time.LocalDate/LocalDateTime、
+   * 枚举常量；
    * @param key 选项的标识，用于从{@code Context#get(String)}里获取运行时数据
    * @param name 选项显示的名称
    * @param elements 选项内置的值，类型相同
    * @see SimpleNamedValue
    * @exception NullPointerException key、name、elements如果为空
+   * @exception IllegalArgumentException  仅支持类型为八种基本类型：boolean,byte,short,char,int,long,float,double和字符串String、java.util.Date、java.time.LocalDate/LocalDateTime、
+   * 枚举常量
    */
   public PredefinedValuesOption(String key, String name, List<NamedValue> elements) {
     super();
@@ -35,10 +40,13 @@ public final class PredefinedValuesOption implements EnumerableValueOption {
       Objects.requireNonNull(null, "elements至少包含一个元素");
     }
     
+    this.type=elements.get(0).type();
+    if (!TypeInfo.isSimpleType(type)) {
+      throw new IllegalArgumentException("elements类型不符合要求");
+    }
     this.name = name;
     this.key = key;
     this.elements = elements;
-    this.type=elements.get(0).getClass();
   }
 
   @Override
