@@ -76,10 +76,10 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
     return this;
   }
 
-      /**
-       * ${spring.application.name}，由项目自动解析，无需用户指定
-       */
-   /* non-public */ public ManualRuleConfigurer springApplicationName(String springApplicationName) {
+  /**
+   * ${spring.application.name}，由项目自动解析，无需用户指定
+   */
+  /* non-public */ public ManualRuleConfigurer springApplicationName(String springApplicationName) {
     this.springApplicationName = springApplicationName;
     return this;
   }
@@ -107,17 +107,17 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
    * 在提交之前，必须自动解析springApplicationName以及自动发现配置的模块;<br>
    * 此方法只能调用一次
    */
- /*non-public*/public synchronized ApplicationDescriptor done() {
+  /* non-public */public synchronized ApplicationDescriptor done() {
     // 是否需要标识应用程序配置完毕
     if (this.configDone) {
       throw new IllegalStateException("应用程序的规则配置已提交，重复调用done()无效。");
     }
     // 开始校验模块信息
     validate();
-    
-    //打印配置信息
+
+    // 打印配置信息
     this.print();
-    
+
     logger.info("=====> 开始构造完整的ApplicationDescriptor");
     // 构造dto之后，开始销毁Configurer引用的数据
     ApplicationDescriptor appDescriptor = buildFullAppDescriptor();
@@ -192,7 +192,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
     return appDescriptor;
   }
 
-  /*non-public*/  synchronized void destroy() {
+  /* non-public */ synchronized void destroy() {
     logger.info("======> 销毁Configurer引用的模块配置信息");
     this.moduleConfigurers = null;
   }
@@ -200,7 +200,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
   /**
    * 校验已配置好的模块
    */
-  /*non-public*/ synchronized void validate() {
+  /* non-public */ synchronized void validate() {
     if (this.springApplicationName == null || this.springApplicationName.trim().isEmpty()) {
       throw new IllegalArgumentException("请指定springApplicationName");
     }
@@ -251,10 +251,10 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
 
   }
 
-  /**
-   * 打印当前配置好的模块信息
-   */
-  /*non-public*/ void print() {
+      /**
+       * 打印当前配置好的模块信息
+       */
+      /* non-public */ void print() {
     logger.info("\n");
     logger.info("****************** {} 启用的业务模块 ******************", this.appName);
     for (ManualModuleConfigurer moduleConfigurer : moduleConfigurers) {
@@ -266,11 +266,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
     logger.info("\n");
   }
 
-  public static class ManualModuleConfigurer implements ModuleConfigurer<ManualRuleConfigurer> {
-    /**
-     * 规则配置
-     */
-    private final ManualRuleConfigurer ruleConfigurer;
+  public static final class ManualModuleConfigurer implements ModuleConfigurer<ManualRuleConfigurer> {
     /**
      * 可配置项
      */
@@ -299,16 +295,14 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
      * @param ruleConfigurer
      */
     public static ManualModuleConfigurer module() {
-      return new ManualModuleConfigurer(ManualRuleConfigurer.singleton());
+      return new ManualModuleConfigurer();
     }
 
-    private ManualModuleConfigurer(ManualRuleConfigurer ruleConfigurer) {
-      this.ruleConfigurer = ruleConfigurer;
-    }
+    private ManualModuleConfigurer() {}
 
     @Override
     public ManualRuleConfigurer and() {
-      return this.ruleConfigurer;
+      return ManualRuleConfigurer.singleton();
     }
 
     @Override
