@@ -1,4 +1,4 @@
-package com.lianjia.sh.se.config.regaltang.external.service;
+package com.lianjia.sh.se.config.regaltang.external.service.criteria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Lazy
-class CriteriaDao {
+/*non-public*/class RuleCriteriaDao {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 

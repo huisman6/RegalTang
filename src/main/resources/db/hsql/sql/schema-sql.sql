@@ -4,6 +4,7 @@ CREATE TABLE t_rule_criteria(
   criteria VARCHAR(120) NOT NULL,
   name VARCHAR(80),
   multiValue INTEGER NOT NULL,
+  status INTEGER ,
   sort INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
@@ -19,6 +20,7 @@ CREATE TABLE t_rule_application(
   -- 支持appKey 查询记录，Unique Key
   appKey VARCHAR(120) NOT NULL,
   name VARCHAR(80),
+  status INTEGER ,
   sort INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
@@ -35,6 +37,7 @@ CREATE TABLE t_rule_application_module(
   moduleKey VARCHAR(120) NOT NULL,
   -- 业务模块的名称描述
   name VARCHAR(80),
+  status INTEGER ,
   sort INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
@@ -52,6 +55,7 @@ CREATE TABLE t_rule_application_module_item(
   name VARCHAR(80) NOT NULL,
   -- 可配置项的唯一标识，用于查找
   itemKey VARCHAR(120),
+  status INTEGER ,
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -73,6 +77,7 @@ CREATE TABLE t_rule_application_module_option(
   className VARCHAR(150),
   -- 选项对外显示的名称;
   name VARCHAR(80),
+  status INTEGER ,
   sort INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
@@ -88,8 +93,11 @@ CREATE TABLE t_rule_application_module_option_named_value(
   name VARCHAR(80) NOT NULL,
   -- 实际的值，保存为字符串，值的标识
   namedValue VARCHAR(200) NOT NULL,
+  --值的类型
+  className VARCHAR(150) NOT NULL,
   -- 选项ID
   optionId INTEGER NOT NULL,
+  status INTEGER 
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -109,6 +117,7 @@ CREATE TABLE t_rule_application_module_output(
   className VARCHAR(150),
   --模块的ID
   moduleId INTEGER NOT NULL,
+  status INTEGER 
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -127,6 +136,7 @@ CREATE TABLE t_rule_application_module_output_predefined_value(
   predefinedValue VARCHAR(200) NOT NULL,
   --输出结果的ID
   outputId INTEGER NOT NULL,
+  status INTEGER 
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),

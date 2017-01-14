@@ -1,4 +1,4 @@
-package com.lianjia.sh.se.config.regaltang.external.service;
+package com.lianjia.sh.se.config.regaltang.external.service.criteria;
 
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,9 @@ import com.lianjia.sh.se.config.regaltang.rule.criteria.MultiValueCriteria;
 
 
 @Service
-public class CriteriaService implements SmartInitializingSingleton {
+public class RuleCriteriaService implements SmartInitializingSingleton {
   @Autowired
-  private CriteriaDao criteriaDao;
+  private RuleCriteriaDao criteriaDao;
 
   /* 
    * @see org.springframework.beans.factory.SmartInitializingSingleton#afterSingletonsInstantiated()

@@ -158,7 +158,7 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
                mod.setPredefinedValues(
                  ((EnumerableValueOption)option).elements()
                  .stream().map((value) -> new ModuleOptionNamedValue(value.name(),
-                     value.value().toString())).collect(Collectors.toList()));
+                     value.value().toString(),value.type().getName())).collect(Collectors.toList()));
              }
              return mod;
           }).collect(Collectors.toList()));

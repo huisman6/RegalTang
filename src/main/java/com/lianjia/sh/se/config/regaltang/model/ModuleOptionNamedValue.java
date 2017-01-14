@@ -22,6 +22,10 @@ public class ModuleOptionNamedValue implements Serializable {
    */
   private String namedValue;
   /**
+   * 值的className
+   */
+  private String className;
+  /**
    * 选项ID
    */
   private int  optionId ;
@@ -30,10 +34,28 @@ public class ModuleOptionNamedValue implements Serializable {
   }
   
   
-  public ModuleOptionNamedValue(String name, String namedValue) {
+  public ModuleOptionNamedValue(String name, String namedValue,String className) {
     super();
     this.name = name;
     this.namedValue = namedValue;
+    this.className=className;
+  }
+
+  
+
+  /**
+   * @return the className
+   */
+  public String getClassName() {
+    return this.className;
+  }
+
+
+  /**
+   * @param className the className to set
+   */
+  public void setClassName(String className) {
+    this.className = className;
   }
 
 
@@ -85,14 +107,17 @@ public class ModuleOptionNamedValue implements Serializable {
   public void setOptionId(int optionId) {
     this.optionId = optionId;
   }
-  
+
+
   /* 
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "ModuleOptionNamedValue [id=" + id + ", name=" + name + ", namedValue=" + namedValue + ", optionId=" + optionId + "]";
+    return "ModuleOptionNamedValue [id=" + id + ", name=" + name + ", namedValue=" + namedValue + ", className=" + className + ", optionId="
+        + optionId + "]";
   }
+  
   
   
 }
