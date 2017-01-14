@@ -3,11 +3,12 @@ package com.lianjia.sh.se.config.regaltang.model;
 import java.io.Serializable;
 
 /**
- * 选项有可选值的元数据信息（只针对类型为{@code EnumerableValueOption}）
+ * 选项有可选值的元数据信息（只针对类型为{@code EnumerableValueOption})；<br>
+ * 推荐预定义的元数据信息，保持向后兼容性，即最好只增不减；
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
-public class ModuleOptionNamedValue implements Serializable {
+public class ModuleOptionPredefinedValue implements Serializable {
   private static final long serialVersionUID = 1L;
   /**
    * 主键ID
@@ -22,42 +23,19 @@ public class ModuleOptionNamedValue implements Serializable {
    */
   private String namedValue;
   /**
-   * 值的className
-   */
-  private String className;
-  /**
    * 选项ID
    */
   private int  optionId ;
-  public ModuleOptionNamedValue() {
+  public ModuleOptionPredefinedValue() {
     super();
   }
   
   
-  public ModuleOptionNamedValue(String name, String namedValue,String className) {
+  public ModuleOptionPredefinedValue(String name, String namedValue) {
     super();
     this.name = name;
     this.namedValue = namedValue;
-    this.className=className;
   }
-
-  
-
-  /**
-   * @return the className
-   */
-  public String getClassName() {
-    return this.className;
-  }
-
-
-  /**
-   * @param className the className to set
-   */
-  public void setClassName(String className) {
-    this.className = className;
-  }
-
 
   /**
    * @return the id
@@ -114,10 +92,10 @@ public class ModuleOptionNamedValue implements Serializable {
    */
   @Override
   public String toString() {
-    return "ModuleOptionNamedValue [id=" + id + ", name=" + name + ", namedValue=" + namedValue + ", className=" + className + ", optionId="
-        + optionId + "]";
+    return "ModuleOptionNamedValue [id=" + id + ", name=" + name + ", namedValue=" + namedValue + ", optionId=" + optionId + "]";
   }
-  
+
+
   
   
 }

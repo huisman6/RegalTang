@@ -9,7 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.lianjia.sh.se.config.regaltang.model.Application;
 import com.lianjia.sh.se.config.regaltang.model.ApplicationModule;
-
+/**
+ * 应用的模块信息
+ * @summary 
+ * @author Huisman (SE)
+ * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
+ */
 @Repository
 @Lazy
 /* non-public */ class ApplicationModuleDao {

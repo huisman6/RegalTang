@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 通用的条件
+ * @author Huisman (SE)
+ * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
+ */
 @Repository
 @Lazy
 /*non-public*/class RuleCriteriaDao {

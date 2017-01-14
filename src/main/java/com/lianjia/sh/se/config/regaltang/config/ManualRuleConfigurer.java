@@ -17,7 +17,7 @@ import com.lianjia.sh.se.config.regaltang.dto.ModuleOutputDescriptor;
 import com.lianjia.sh.se.config.regaltang.model.Application;
 import com.lianjia.sh.se.config.regaltang.model.ApplicationModule;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOption;
-import com.lianjia.sh.se.config.regaltang.model.ModuleOptionNamedValue;
+import com.lianjia.sh.se.config.regaltang.model.ModuleOptionPredefinedValue;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutput;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutputJavaBean;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutputPredefinedValue;
@@ -157,8 +157,8 @@ public final class ManualRuleConfigurer implements RuleConfigurer<ManualRuleConf
              if (option instanceof EnumerableValueOption) {
                mod.setPredefinedValues(
                  ((EnumerableValueOption)option).elements()
-                 .stream().map((value) -> new ModuleOptionNamedValue(value.name(),
-                     value.value().toString(),value.type().getName())).collect(Collectors.toList()));
+                 .stream().map((value) -> new ModuleOptionPredefinedValue(value.name(),
+                     value.value().toString())).collect(Collectors.toList()));
              }
              return mod;
           }).collect(Collectors.toList()));

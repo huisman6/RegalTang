@@ -22,9 +22,9 @@ public class ModuleOutputPredefinedValue implements Serializable {
    */
   private String value;
   /**
-   * 输出值所关联的output的ID
+   * module的ID
    */
-  private int outputId;
+  private int moduleId;
   public ModuleOutputPredefinedValue() {
     super();
   }
@@ -71,24 +71,29 @@ public class ModuleOutputPredefinedValue implements Serializable {
   public void setValue(String value) {
     this.value = value;
   }
+  
   /**
-   * @return the outputId
+   * @return the moduleId
    */
-  public int getOutputId() {
-    return this.outputId;
+  public int getModuleId() {
+    return this.moduleId;
   }
+
   /**
-   * @param outputId the outputId to set
+   * @param moduleId the moduleId to set
    */
-  public void setOutputId(int outputId) {
-    this.outputId = outputId;
+  public void setModuleId(int moduleId) {
+    this.moduleId = moduleId;
   }
+
   /* 
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "ModuleOutputPredifinedValue [id=" + id + ", name=" + name + ", value=" + value + ", outputId=" + outputId + "]";
+    return "ModuleOutputPredefinedValue [id=" + id + ", name=" + name + ", value=" + value + ", moduleId=" + moduleId + "]";
   }
+
+  
   
 }

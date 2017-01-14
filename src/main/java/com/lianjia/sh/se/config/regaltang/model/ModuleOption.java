@@ -26,7 +26,7 @@ public class ModuleOption implements Serializable {
    */
   private int optionType;
   /**
-   * 选项期望的数据类型
+   * 选项期望的数据类型，如果是预定义的选项值，则表示预定义的值都是这个类型
    */
   private String className;
 
@@ -34,6 +34,11 @@ public class ModuleOption implements Serializable {
    * 条件对外显示的名称
    */
   private String name;
+  
+  /**
+   *此选项所有预定义值的摘要信息(MD5)，如果有变动，则会先清除选项已有的值，再insert所有此选项预定义的值
+   */
+  private String digest;
 
   /**
    * 排序，属于越大，越靠前
@@ -51,6 +56,24 @@ public class ModuleOption implements Serializable {
     this.optionKey = optionKey;
     this.className = className;
     this.name = name;
+  }
+
+
+
+  /**
+   * @return the digest
+   */
+  public String getDigest() {
+    return this.digest;
+  }
+
+
+
+  /**
+   * @param digest the digest to set
+   */
+  public void setDigest(String digest) {
+    this.digest = digest;
   }
 
 

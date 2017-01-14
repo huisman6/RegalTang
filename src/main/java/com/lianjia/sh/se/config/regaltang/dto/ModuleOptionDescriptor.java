@@ -3,7 +3,7 @@ package com.lianjia.sh.se.config.regaltang.dto;
 import java.util.List;
 
 import com.lianjia.sh.se.config.regaltang.model.ModuleOption;
-import com.lianjia.sh.se.config.regaltang.model.ModuleOptionNamedValue;
+import com.lianjia.sh.se.config.regaltang.model.ModuleOptionPredefinedValue;
 
 /**
  * 模块选项的描述，仅用作数据传输和json反序列化，不用于缓存等其他业务
@@ -14,7 +14,7 @@ public class ModuleOptionDescriptor {
    /**
    * 如果有预定义的选项值的话
    */
-  private List<ModuleOptionNamedValue> predefinedValues;
+  private List<ModuleOptionPredefinedValue> predefinedValues;
    /**
    * 条件选项
    */
@@ -36,13 +36,13 @@ public class ModuleOptionDescriptor {
   /**
    * @return the predefinedValues
    */
-  public List<ModuleOptionNamedValue> getPredefinedValues() {
+  public List<ModuleOptionPredefinedValue> getPredefinedValues() {
     return this.predefinedValues;
   }
   /**
    * @param predefinedValues the predefinedValues to set
    */
-  public void setPredefinedValues(List<ModuleOptionNamedValue> predefinedValues) {
+  public void setPredefinedValues(List<ModuleOptionPredefinedValue> predefinedValues) {
     this.predefinedValues = predefinedValues;
   }
   /**

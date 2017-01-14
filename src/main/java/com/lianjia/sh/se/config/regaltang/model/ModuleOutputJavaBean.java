@@ -23,10 +23,9 @@ public class ModuleOutputJavaBean implements Serializable {
    */
   private String fieldClassName ;
   /**
-   * 输出结果的ID
+   * 模块的ID
    */
-  
-  private int outputId ;
+  private int moduleId ;
   public ModuleOutputJavaBean() {
     super();
   }
@@ -73,26 +72,31 @@ public class ModuleOutputJavaBean implements Serializable {
   public void setFieldClassName(String fieldClassName) {
     this.fieldClassName = fieldClassName;
   }
+  
   /**
-   * @return the outputId
+   * @return the moduleId
    */
-  public int getOutputId() {
-    return this.outputId;
+  public int getModuleId() {
+    return this.moduleId;
   }
+
   /**
-   * @param outputId the outputId to set
+   * @param moduleId the moduleId to set
    */
-  public void setOutputId(int outputId) {
-    this.outputId = outputId;
+  public void setModuleId(int moduleId) {
+    this.moduleId = moduleId;
   }
+
   /* 
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "ModuleOutputJavaBean [id=" + id + ", fieldName=" + fieldName + ", fieldClassName=" + fieldClassName + ", outputId=" + outputId
+    return "ModuleOutputJavaBean [id=" + id + ", fieldName=" + fieldName + ", fieldClassName=" + fieldClassName + ", moduleId=" + moduleId
         + "]";
   }
+
+  
   
   
 }

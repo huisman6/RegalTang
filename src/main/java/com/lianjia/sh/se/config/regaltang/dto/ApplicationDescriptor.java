@@ -8,7 +8,7 @@ import java.util.Set;
 import com.lianjia.sh.se.config.regaltang.model.Application;
 import com.lianjia.sh.se.config.regaltang.model.ApplicationModule;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOption;
-import com.lianjia.sh.se.config.regaltang.model.ModuleOptionNamedValue;
+import com.lianjia.sh.se.config.regaltang.model.ModuleOptionPredefinedValue;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutputJavaBean;
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutputPredefinedValue;
 import com.lianjia.sh.se.config.regaltang.model.ModuleRuleItem;
@@ -164,8 +164,8 @@ public class ApplicationDescriptor {
 
         // 条件选项预定义的值，必须包含name和value
         if (option.getPredefinedValues() != null && !option.getPredefinedValues().isEmpty()) {
-          for (ModuleOptionNamedValue val : option.getPredefinedValues()) {
-            if (isNullOrTrimedEmpty(val.getName()) || isNullOrTrimedEmpty(val.getNamedValue()) || isNullOrTrimedEmpty(val.getClassName())) {
+          for (ModuleOptionPredefinedValue val : option.getPredefinedValues()) {
+            if (isNullOrTrimedEmpty(val.getName()) || isNullOrTrimedEmpty(val.getNamedValue())) {
               throw new IllegalArgumentException(
                   String.format("app:%s(name=%s)，module:%s(name=%s)，条件项：%s(name=%s)包含预定义的值，但预定义的值的name或value或者className为空", this.app.getAppKey(),
                       this.app.getName(), appModule.getModuleKey(), appModule.getName(), mo.getOptionKey(), mo.getName()));

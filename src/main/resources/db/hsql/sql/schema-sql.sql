@@ -55,7 +55,7 @@ CREATE TABLE t_rule_application_module_item(
   name VARCHAR(80) NOT NULL,
   -- 可配置项的唯一标识，用于查找
   itemKey VARCHAR(120),
-  status INTEGER ,
+  status INTEGER
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -73,10 +73,12 @@ CREATE TABLE t_rule_application_module_option(
   optionKey VARCHAR(120) NOT NULL,
   -- 选项的类型，1=SimpleOption,2=PredifinedValuesOption
   optionType INT NOT NULL,
-  -- 选项期望的数据类型
+  -- 选项期望的数据类型，如果是预定义的选项值，则表示预定义的值都是这个类型
   className VARCHAR(150),
   -- 选项对外显示的名称;
   name VARCHAR(80),
+  --此选项所有预定义值的摘要信息(MD5)，如果有变动，则会先清除选项已有的值，再insert所有此选项预定义的值
+  digest VARCHAR(32),
   status INTEGER ,
   sort INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
@@ -87,17 +89,14 @@ CREATE TABLE t_rule_application_module_option(
   --muser INTEGER not null default (0)
 );
 --选项有可选值的元数据信息（只针对类型为PredifinedValuesOption）
-CREATE TABLE t_rule_application_module_option_named_value(
+CREATE TABLE t_rule_application_module_option_predefined_value(
   id INTEGER IDENTITY PRIMARY KEY,
   -- 可枚举的option对应的值对外显示的名称
   name VARCHAR(80) NOT NULL,
   -- 实际的值，保存为字符串，值的标识
-  namedValue VARCHAR(200) NOT NULL,
-  --值的类型
-  className VARCHAR(150) NOT NULL,
+  predefinedValue VARCHAR(200) NOT NULL,
   -- 选项ID
-  optionId INTEGER NOT NULL,
-  status INTEGER 
+  optionId INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -107,7 +106,8 @@ CREATE TABLE t_rule_application_module_option_named_value(
 );
 
 CREATE TABLE t_rule_application_module_output(
-  id INTEGER IDENTITY PRIMARY KEY,
+  --模块的ID，和module是一对一的关系
+  moduleId INTEGER PRIMARY KEY,
   --规则输出的类型，1=ScalarRuleOutput,2=PredifinedValuesRuleOutput，3=JavaBeanRuleOutput
   -- 类型为2和3的输出，可能有多个配置项
   outputType INT,
@@ -115,9 +115,8 @@ CREATE TABLE t_rule_application_module_output(
   name VARCHAR(80),
   --规则输出期望的类型
   className VARCHAR(150),
-  --模块的ID
-  moduleId INTEGER NOT NULL,
-  status INTEGER 
+  --所有预定义值或JavaBean的摘要信息(MD5)，如果有变动，则会先清除选项已有的值，再insert所有的值
+  digest VARCHAR(32)
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -134,9 +133,8 @@ CREATE TABLE t_rule_application_module_output_predefined_value(
   name VARCHAR(80) NOT NULL,
   -- 实际的值，保存为字符串
   predefinedValue VARCHAR(200) NOT NULL,
-  --输出结果的ID
-  outputId INTEGER NOT NULL,
-  status INTEGER 
+  --模块的ID
+  moduleId INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),
@@ -154,7 +152,7 @@ CREATE TABLE t_rule_application_module_output_javabean(
   --字段的数据类型
   fieldClassName VARCHAR(150) NOT NULL,
   --输出结果的ID
-  outputId INTEGER NOT NULL,
+  moduleId INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,
   -- ctime DATETIME default GETDATE(),

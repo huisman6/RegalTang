@@ -10,11 +10,6 @@ import java.io.Serializable;
 public class ModuleOutput  implements Serializable{
   private static final long serialVersionUID = 1L;
   /**
-   * 主键ID
-   */
-  private int id;
-  
-  /**
    * --规则输出的类型，1=ScalarRuleOutput,2=PredifinedValuesRuleOutput，3=JavaBeanRuleOutput
    * 类型为2和3的输出，可能有多个配置项
    */
@@ -28,9 +23,14 @@ public class ModuleOutput  implements Serializable{
    */
   private String className;
   /**
-   * 模块的ID
+   * 模块的ID，主键ID，一个模块只能对应一个输出
    */
   private int moduleId;
+  
+  /**
+   * 输出所有预定义值或者JavaBean类型的输出信息的摘要信息(MD5)，如果有变动，则会先清除选项已有的值，再insert所有的值
+   */
+  private String digest;
   
   public ModuleOutput() {
     super();
@@ -43,23 +43,7 @@ public class ModuleOutput  implements Serializable{
     this.name = name;
     this.className = className;
   }
-
-
-
-  /**
-   * @return the id
-   */
-  public int getId() {
-    return this.id;
-  }
-
-  /**
-   * @param id the id to set
-   */
-  public void setId(int id) {
-    this.id = id;
-  }
-
+  
   /**
    * @return the outputType
    */
@@ -80,6 +64,26 @@ public class ModuleOutput  implements Serializable{
   public String getName() {
     return this.name;
   }
+  
+  
+
+  /**
+   * @return the digest
+   */
+  public String getDigest() {
+    return this.digest;
+  }
+
+
+
+  /**
+   * @param digest the digest to set
+   */
+  public void setDigest(String digest) {
+    this.digest = digest;
+  }
+
+
 
   /**
    * @param name the name to set
@@ -116,13 +120,17 @@ public class ModuleOutput  implements Serializable{
     this.moduleId = moduleId;
   }
 
+
+
   /* 
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    return "ModuleOutput [id=" + id + ", outputType=" + outputType + ", name=" + name + ", className=" + className + ", moduleId="
-        + moduleId + "]";
+    return "ModuleOutput [outputType=" + outputType + ", name=" + name + ", className=" + className + ", moduleId=" + moduleId + ", digest="
+        + digest + "]";
   }
+
+  
   
 }

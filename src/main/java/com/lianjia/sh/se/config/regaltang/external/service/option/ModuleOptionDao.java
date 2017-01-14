@@ -8,7 +8,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.lianjia.sh.se.config.regaltang.model.ModuleOption;
-
+/**
+ * 模块选项信息
+ * @author Huisman (SE)
+ * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
+ */
 @Repository
 @Lazy
 /* non-public */class ModuleOptionDao {
