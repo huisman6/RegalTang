@@ -29,7 +29,7 @@ import com.lianjia.sh.se.config.regaltang.model.Application;
   /**
    * 根据应用key查询
    */
-  public Application findByKey(int appKey) {
+  public Application findByKey(String appKey) {
     return this.jdbcTemplate.queryForObject("select id,appKey,sort,name from t_rule_application where appKey =? AND status=1",
         Application.class, appKey);
   }
@@ -55,5 +55,4 @@ import com.lianjia.sh.se.config.regaltang.model.Application;
   public boolean updateAppByAppKey(String appKey, String newName, int newSort) {
     return this.jdbcTemplate.update("update t_rule_application set name=?,sort=? where appKey=?", newName, newSort, appKey) > 0;
   }
-
 }
