@@ -5,6 +5,8 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lianjia.sh.se.config.regaltang.config.ManualRuleConfigurer;
 import com.lianjia.sh.se.config.regaltang.dto.ApplicationDescriptor;
 import com.lianjia.sh.se.config.regaltang.rule.item.RuleItem;
@@ -15,7 +17,7 @@ public class ManualRuleConfigurerTest {
   @Test
   public void build() {
     //@formatter:off
-    ApplicationDescriptor ad=  ManualRuleConfigurer.singleton()
+    ApplicationDescriptor appDescriptor=  ManualRuleConfigurer.singleton()
       .appName("房源")
       .withModule()
           .identity(InterestPersonContext.MODULE_NAMESPACE)
@@ -32,7 +34,13 @@ public class ManualRuleConfigurerTest {
           .and().springApplicationName("fy-entrust-server")
           .done();
       
-      System.out.println(ad.toString());
+     ObjectMapper mapper=new ObjectMapper();
+     try {
+     System.out.println(mapper.writeValueAsString(appDescriptor));
+    } catch (JsonProcessingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
      //@formatter:on
   }
   

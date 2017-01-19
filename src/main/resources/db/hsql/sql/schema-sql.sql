@@ -20,7 +20,9 @@ CREATE TABLE t_rule_application(
   -- 支持appKey 查询记录，Unique Key
   appKey VARCHAR(120) NOT NULL,
   name VARCHAR(80),
-  status INTEGER ,
+  --应用所有元数据的摘要信息
+  digest VARCHAR(32) NOT NULL,
+  status INTEGER NOT NULL ,
   sort INTEGER NOT NULL
  -- sync SMALLINT DEFAULT(0)
   -- status INTEGER default(1) not null,

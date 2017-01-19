@@ -13,7 +13,8 @@ import com.lianjia.sh.se.config.regaltang.rule.value.MultiKeyBasedValues;
 import com.lianjia.sh.se.config.regaltang.rule.value.TypeInfo;
 
 /**
- * 支持同时配置多个属性的值，JavaBean字段仅支持Java八种基本类型以及String，由用户手动配置Java Bean各字段的属性值
+ * 支持同时配置多个属性的值，JavaBean字段仅支持Java八种基本类型以及String、java.util.Date、java.time.LocalDate/LocalDateTime，
+ * 不能包含枚举，由用户手动配置Java Bean各字段的属性值
  * 
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
@@ -45,10 +46,10 @@ public final class JavaBeanRuleOutput implements RuleOutput, MultiKeyBasedValues
     // 至少存在一个有效的Getter/Setter
     this.elements = Stream.of(propertys)
         .filter(
-           //必须是简单类型、并且不是枚举
-          (pd) -> (pd.getPropertyType() != null && TypeInfo.isSimpleType(pd.getPropertyType()) && !pd.getPropertyType().isEnum()))
+            // 必须是简单类型、并且不是枚举
+            (pd) -> (pd.getPropertyType() != null && TypeInfo.isSimpleType(pd.getPropertyType()) && !pd.getPropertyType().isEnum()))
         .map((pd) -> new KeyWithValueType(pd.getName(), pd.getPropertyType())).collect(Collectors.toList());
-    
+
     if (this.elements == null || this.elements.isEmpty()) {
       throw new IllegalArgumentException(
           String.format("type:%s，不是有效的JavaBean，至少包含一个类型为：Java八种基本类型以及String、java.util.Date、java.time.LocalDate/LocalDateTime的Getter/Setter",

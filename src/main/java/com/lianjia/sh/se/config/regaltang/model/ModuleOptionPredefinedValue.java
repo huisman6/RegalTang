@@ -21,7 +21,7 @@ public class ModuleOptionPredefinedValue implements Serializable {
   /**
    * 实际的值，保存为字符串，值的标识
    */
-  private String namedValue;
+  private String predefinedValue;
   /**
    * 选项ID
    */
@@ -34,7 +34,7 @@ public class ModuleOptionPredefinedValue implements Serializable {
   public ModuleOptionPredefinedValue(String name, String namedValue) {
     super();
     this.name = name;
-    this.namedValue = namedValue;
+    this.predefinedValue = namedValue;
   }
 
   /**
@@ -61,18 +61,23 @@ public class ModuleOptionPredefinedValue implements Serializable {
   public void setName(String name) {
     this.name = name;
   }
+  
   /**
-   * @return the namedValue
+   * @return the predefinedValue
    */
-  public String getNamedValue() {
-    return this.namedValue;
+  public String getPredefinedValue() {
+    return this.predefinedValue;
   }
+
+
   /**
-   * @param namedValue the namedValue to set
+   * @param predefinedValue the predefinedValue to set
    */
-  public void setNamedValue(String namedValue) {
-    this.namedValue = namedValue;
+  public void setPredefinedValue(String predefinedValue) {
+    this.predefinedValue = predefinedValue;
   }
+
+
   /**
    * @return the optionId
    */
@@ -92,7 +97,7 @@ public class ModuleOptionPredefinedValue implements Serializable {
    */
   @Override
   public String toString() {
-    return "ModuleOptionNamedValue [id=" + id + ", name=" + name + ", namedValue=" + namedValue + ", optionId=" + optionId + "]";
+    return "ModuleOptionNamedValue [id=" + id + ", name=" + name + ", predefinedValue=" + predefinedValue + ", optionId=" + optionId + "]";
   }
 
 

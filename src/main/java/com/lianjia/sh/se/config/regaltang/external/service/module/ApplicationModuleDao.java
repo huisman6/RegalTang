@@ -1,17 +1,23 @@
 package com.lianjia.sh.se.config.regaltang.external.service.module;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.lianjia.sh.se.config.regaltang.model.Application;
 import com.lianjia.sh.se.config.regaltang.model.ApplicationModule;
+
 /**
  * 应用的模块信息
- * @summary 
+ * 
+ * @summary
  * @author Huisman (SE)
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
@@ -26,7 +32,8 @@ import com.lianjia.sh.se.config.regaltang.model.ApplicationModule;
    * 根据模块ID查找模块信息
    */
   public Application findById(int id) {
-    return this.jdbcTemplate.queryForObject("select id,appId,name,sort,moduleKey from t_rule_application_module where id =? AND status=1", Application.class, id);
+    return this.jdbcTemplate.queryForObject("select id,appId,name,sort,moduleKey from t_rule_application_module where id =? AND status=1",
+        Application.class, id);
   }
 
   /**
@@ -58,5 +65,22 @@ import com.lianjia.sh.se.config.regaltang.model.ApplicationModule;
   public boolean updateModuleByKey(int appId, String moduleKey, String newName, int newSort) {
     return this.jdbcTemplate.update("update t_rule_application_module set name=?,sort=? where appId=? AND moduleKey=? ", newName, newSort,
         appId, moduleKey) > 0;
+  }
+
+  /**
+   * 批量新增应用的模块信息
+   * 
+   * @param items
+   */
+  public void batchAddModules(Collection<ApplicationModule> modules) {
+    this.jdbcTemplate.batchUpdate("insert into t_rule_application_module(appId,name,moduleKey,status)values(?,?,?,1)", modules, 100,
+        new ParameterizedPreparedStatementSetter<ApplicationModule>() {
+          @Override
+          public void setValues(PreparedStatement ps, ApplicationModule argument) throws SQLException {
+            ps.setInt(1, argument.getAppId());
+            ps.setString(2, argument.getName());
+            ps.setString(3, argument.getModuleKey());
+          }
+        });
   }
 }

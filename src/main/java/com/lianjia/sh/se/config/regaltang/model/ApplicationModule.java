@@ -41,6 +41,14 @@ public class ApplicationModule implements Serializable {
   }
 
 
+  public ApplicationModule(int appId, String moduleKey, String name) {
+    super();
+    this.appId = appId;
+    this.moduleKey = moduleKey;
+    this.name = name;
+  }
+
+
   /**
    * @return the id
    */

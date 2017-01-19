@@ -1,8 +1,13 @@
 package com.lianjia.sh.se.config.regaltang.external.service.output;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutput;
@@ -38,5 +43,18 @@ import com.lianjia.sh.se.config.regaltang.model.ModuleOutput;
    */
   public boolean updateOutputByModuleId(int moduleId, String newName,int outputType,String className) {
     return this.jdbcTemplate.update("update t_rule_application_module_output set name=?,outputType=?,className=? where moduleId=?", newName,outputType,className,moduleId) > 0;
+  }
+  
+  public void batchInsert(Collection<ModuleOutput> outputs) {
+    this.jdbcTemplate.batchUpdate("insert into t_rule_application_module_output(moduleId,name,outputType,className)values(?,?,?,?)", outputs, 100,
+        new ParameterizedPreparedStatementSetter<ModuleOutput>() {
+          @Override
+          public void setValues(PreparedStatement ps, ModuleOutput argument) throws SQLException {
+            ps.setInt(1, argument.getModuleId());
+            ps.setString(2, argument.getName());
+            ps.setInt(3, argument.getOutputType());
+            ps.setString(4, argument.getClassName());
+          }
+        });
   }
 }

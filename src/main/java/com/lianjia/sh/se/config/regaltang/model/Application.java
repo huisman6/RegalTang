@@ -22,6 +22,10 @@ public class Application implements Serializable {
    */
   private String name;
   /**
+   * 用于比对应用相比于最后一次更新时，是否有调整（新增或删除一些module)，通常为md5值
+   */
+  private String digest;
+  /**
    * 排序，优先级越高，值越大
    */
   private int sort;
@@ -34,6 +38,21 @@ public class Application implements Serializable {
     super();
     this.appKey = appKey;
     this.name = name;
+  }
+
+  /**
+   * @return the digest
+   */
+  public String getDigest() {
+    return this.digest;
+  }
+
+
+  /**
+   * @param digest the digest to set
+   */
+  public void setDigest(String digest) {
+    this.digest = digest;
   }
 
 

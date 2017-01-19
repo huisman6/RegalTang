@@ -1,10 +1,14 @@
 package com.lianjia.sh.se.config.regaltang.external.service.output;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import com.lianjia.sh.se.config.regaltang.model.ModuleOutputPredefinedValue;
@@ -35,7 +39,24 @@ import com.lianjia.sh.se.config.regaltang.model.ModuleOutputPredefinedValue;
    */
   public List<ModuleOutputPredefinedValue> findByModuleId(int moduleId) {
     return this.jdbcTemplate.queryForList(
-      "select id,moduleId,predefinedValue,name from t_rule_application_module_output_predefined_value where moduleId =?",
-      ModuleOutputPredefinedValue.class, moduleId);
+        "select id,moduleId,predefinedValue,name from t_rule_application_module_output_predefined_value where moduleId =?",
+        ModuleOutputPredefinedValue.class, moduleId);
+  }
+
+  /**
+   * 批量保存预定义的值
+   * @param values
+   */
+  public void batchInsert(Collection<ModuleOutputPredefinedValue> values) {
+    this.jdbcTemplate.batchUpdate(
+        "insert into t_rule_application_module_output_predefined_value(moduleId,predefinedValue,name)values(?,?,?)", values, 100,
+        new ParameterizedPreparedStatementSetter<ModuleOutputPredefinedValue>() {
+          @Override
+          public void setValues(PreparedStatement ps, ModuleOutputPredefinedValue argument) throws SQLException {
+            ps.setInt(1, argument.getModuleId());
+            ps.setString(2, argument.getValue());
+            ps.setString(3, argument.getName());
+          }
+        });
   }
 }

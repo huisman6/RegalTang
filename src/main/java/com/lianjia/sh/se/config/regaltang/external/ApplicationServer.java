@@ -9,9 +9,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @Copyright (c) 2017, Lianjia Group All Rights Reserved.
  */
 @SpringBootApplication
-public class Application {
+public class ApplicationServer {
   public static void main(String[] args) {
-    SpringApplicationBuilder sab=new SpringApplicationBuilder(Application.class);
+    SpringApplicationBuilder sab=new SpringApplicationBuilder(ApplicationServer.class);
     //我们需要hsql的Swing界面
     sab.headless(false);
     sab.build().run(args);

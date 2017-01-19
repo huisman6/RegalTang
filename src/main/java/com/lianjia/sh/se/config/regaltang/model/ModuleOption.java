@@ -22,7 +22,7 @@ public class ModuleOption implements Serializable {
    */
   private String optionKey;
   /**
-   * 选项的类型，1=SimpleOption,2=PredifinedValuesOption
+   * 选项的类型，1=SimpleOption,2=PredefinedValuesOption
    */
   private int optionType;
   /**
