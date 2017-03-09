@@ -1,0 +1,13 @@
+# SERVER
+server:
+    port: 8080
+    tomcat:
+       max-threads: 500
+       uri-encoding: UTF-8
+    compression:
+     enabled: true # If response compression is enabled.
+     mime-types: application/json,text/html,text/plain,text/xml,text/css,text/javascript # Comma-separated list of MIME types that should be compressed. 
+     min-response-size: 2048
+       
+spring.applicaiton.name: realtang
+spring.profiles.active: test
